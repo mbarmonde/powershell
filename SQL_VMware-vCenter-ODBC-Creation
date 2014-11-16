@@ -1,0 +1,37 @@
+### Author:       Mike Barmonde
+### Description:  Creates a 64-bit System DSN for VMware vCenter Server.
+### Usage:        N/A
+### Notes:        Supports SQL Server 2008(R2) and SQL 2012
+
+
+
+$DSNName = $args[1]
+$DBName = $args[1]
+
+If($args[0] -eq $NULL) { echo "Must specify FQDN of SQL server."; Exit}
+If($args[1] -eq $NULL) { echo "Must specify Database name."; Exit}
+If($args[2] -eq $NULL) { echo "Must specify SQL Version (2008 or 2012)"; Exit}
+if($args[3] -eq "encrypt") { $Encrypt = "Yes" } Else { $Encrypt = "No" }
+
+$HKLMPath1 = "HKLM:\SOFTWARE\ODBC\ODBC.INI\" + $DSNName
+$HKLMPath2 = "HKLM:\SOFTWARE\ODBC\ODBC.INI\ODBC Data Sources"
+md $HKLMPath1 -ErrorAction silentlycontinue
+
+set-itemproperty -path $HKLMPath1 -name Description -value $DSNName
+set-itemproperty -path $HKLMPath1 -name Server -value $args[0]
+set-itemproperty -path $HKLMPath1 -name LastUser -value "Administrator"
+set-itemproperty -path $HKLMPath1 -name Trusted_Connection -value "Yes"
+set-itemproperty -path $HKLMPath1 -name Encrypt -value $Encrypt
+set-itemproperty -path $HKLMPath1 -name Database -value $DBName
+
+md $HKLMPath2 -ErrorAction silentlycontinue
+
+if ($args[2] -eq 2008) {
+set-itemproperty -path $HKLMPath2 -name "$DSNName" -value "SQL Server Native Client 10.0"
+set-itemproperty -path $HKLMPath1 -name Driver -value "C:\WINDOWS\system32\sqlncli10.dll"
+}
+
+Else {
+set-itemproperty -path $HKLMPath2 -name "$DSNName" -value "SQL Server Native Client 11.0"
+set-itemproperty -path $HKLMPath1 -name Driver -value "C:\WINDOWS\system32\sqlncli11.dll"
+}
