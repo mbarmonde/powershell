@@ -1,16 +1,20 @@
-## <copyright file="Set-VMwarePSP.ps1" company="NimbleStorage">
-## Copyright (c) 2013 All Right Reserved, http://www.nimblestorage.com/
-##
-## THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY 
-## KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
-## IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
-## PARTICULAR PURPOSE.
-##
-## </copyright>
-## <author>Adam Herbert</author>
-## <email>aherbert@nimblestorage.com</email>
-## <date>2013-03-12</date>
-## <summary>Sets RoundRobin PSP rule for Nimble Storage volumes and applies policy to existing volumes</summary>
+### <copyright file="Set-VMwarePSP.ps1" company="NimbleStorage">
+### Copyright (c) 2013 All Right Reserved, http://www.nimblestorage.com/
+###
+### THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY 
+### KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+### IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+### PARTICULAR PURPOSE.
+###
+### </copyright>
+### <author>Adam Herbert</author>
+### <email>aherbert@nimblestorage.com</email>
+### <date>2013-03-12</date>
+### <summary>Sets RoundRobin PSP rule for Nimble Storage volumes and applies policy to existing volumes</summary>
+
+
+
+
 
 if ((Get-PSSnapin -Name VMware.VimAutomation.Core -ErrorAction SilentlyContinue) -eq $null) {
   try {
